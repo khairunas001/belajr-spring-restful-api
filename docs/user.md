@@ -1,5 +1,5 @@
 # User API Spec
-# Anas
+
 ## Register User
 
 Endpoint : POST /api/users
@@ -8,9 +8,9 @@ Request Body :
 
 ```json
 {
-  "username" : "khannedy",
+  "username" : "Anas",
   "password" : "rahasia",
-  "name" : "Eko Kurniawan Khannedy" 
+  "name" : "Anas Khairunas" 
 }
 ```
 
@@ -38,7 +38,7 @@ Request Body :
 
 ```json
 {
-  "username" : "khannedy",
+  "username" : "Anas",
   "password" : "rahasia" 
 }
 ```
@@ -75,8 +75,8 @@ Response Body (Success) :
 ```json
 {
   "data" : {
-    "username" : "khannedy",
-    "name" : "Eko Kurniawan Khannedy"
+    "username" : "Anas",
+    "name" : "Anas Khairunas"
   }
 }
 ```
@@ -101,7 +101,7 @@ Request Body :
 
 ```json
 {
-  "name" : "Eko Khannedy", // put if only want to update name
+  "name" : "Anas Khairunas", // put if only want to update name
   "password" : "new password" // put if only want to update password
 }
 ```
@@ -111,8 +111,8 @@ Response Body (Success) :
 ```json
 {
   "data" : {
-    "username" : "khannedy",
-    "name" : "Eko Kurniawan Khannedy"
+    "username" : "Anas",
+    "name" : "Anas Khairunas"
   }
 }
 ```
