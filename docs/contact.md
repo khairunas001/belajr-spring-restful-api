@@ -12,9 +12,9 @@ Request Body :
 
 ```json
 {
-  "firstName" : "Eko Kurniawan",
-  "lastName" : "Khannedy",
-  "email" : "eko@example.com",
+  "firstName" : "Daniel",
+  "lastName" : "Budianto",
+  "email" : "budispeed@example.com",
   "phone" : "0899889998"
 }
 ```
@@ -25,9 +25,9 @@ Response Body (Success) :
 {
   "data": {
     "id" : "random-string",
-    "firstName": "Eko Kurniawan",
-    "lastName": "Khannedy",
-    "email": "eko@example.com",
+    "firstName": "Daniel",
+    "lastName": "KBudianto",
+    "email": "budispeed@example.com",
     "phone": "0899889998"
   }
 }
@@ -53,9 +53,9 @@ Request Body :
 
 ```json
 {
-  "firstName" : "Eko Kurniawan",
-  "lastName" : "Khannedy",
-  "email" : "eko@example.com",
+  "firstName" : "Daniel",
+  "lastName" : "Budianto",
+  "email" : "budispeed@example.com",
   "phone" : "0899889998"
 }
 ```
@@ -65,10 +65,10 @@ Response Body (Success) :
 ```json
 {
   "data": {
-    "id" : "random-string",
-    "firstName": "Eko Kurniawan",
-    "lastName": "Khannedy",
-    "email": "eko@example.com",
+    "id": "random-string",
+    "firstName": "Daniel",
+    "lastName": "Budianto",
+    "email": "budispeed@example.com",
     "phone": "0899889998"
   }
 }
@@ -95,10 +95,10 @@ Response Body (Success) :
 ```json
 {
   "data": {
-    "id" : "random-string",
-    "firstName": "Eko Kurniawan",
-    "lastName": "Khannedy",
-    "email": "eko@example.com",
+    "id": "random-string",
+    "firstName": "Daniel",
+    "lastName": "Budianto",
+    "email": "budispeed@example.com",
     "phone": "0899889998"
   }
 }
@@ -135,16 +135,16 @@ Response Body (Success) :
   "data": [
     {
       "id": "random-string",
-      "firstName": "Eko Kurniawan",
-      "lastName": "Khannedy",
-      "email": "eko@example.com",
+      "firstName": "Daniel",
+      "lastName": "Budianto",
+      "email": "budispeed@example.com",
       "phone": "0899889998"
     }
   ],
-  "paging" : {
-    "currentPage" : 0,
-    "totalPage" : 10,
-    "size" : 10
+  "paging": {
+    "currentPage": 0,
+    "totalPage": 10,
+    "size": 10
   }
 }
 ```
