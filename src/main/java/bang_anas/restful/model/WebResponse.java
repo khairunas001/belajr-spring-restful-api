@@ -1,5 +1,18 @@
 package bang_anas.restful.model;
 
-public class WebResponse {
-    // sampai menit 19.00 register user API
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class WebResponse<T> {
+
+    private T data;
+
+    private String errors;
+
 }

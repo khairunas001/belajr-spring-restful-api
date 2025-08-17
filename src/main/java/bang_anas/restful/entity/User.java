@@ -26,9 +26,8 @@ public class User {
     private String token;
 
     @Column(name = "token_expired_at")
-    private String tokenExpiredAt;
+    private Long tokenExpiredAt;
 
     @OneToMany(mappedBy = "user")
     private List<Contact> contacts;
-
 }
