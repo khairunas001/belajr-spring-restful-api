@@ -2,6 +2,7 @@ package bang_anas.restful.service;
 
 import bang_anas.restful.entity.User;
 import bang_anas.restful.model.RegisterUserRequest;
+import bang_anas.restful.model.UserResponse;
 import bang_anas.restful.repository.UserRepository;
 import bang_anas.restful.security.BCrypt;
 import jakarta.validation.ConstraintViolation;
@@ -44,4 +45,12 @@ public class UserService {
         userRepository.save(user);
 
     }
+
+    public UserResponse get(User user){
+        return UserResponse.builder()
+                .username(user.getUsername())
+                .name(user.getName())
+                .build();
+    }
+
 }
