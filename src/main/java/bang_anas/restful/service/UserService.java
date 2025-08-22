@@ -46,7 +46,31 @@ public class UserService {
 
     }
 
+//    @Transactional
+//    public UserResponse register(RegisterUserRequest request){
+//
+//        // validate the data reuqst
+//        validationService.validate(request);
+//
+//        if (userRepository.existsById(request.getUsername())){
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"username already registered");
+//        }
+//
+//        // modularity for save data
+//        User user = new User();
+//        user.setUsername(request.getUsername());
+//        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+//        user.setName(request.getName());
+//        userRepository.save(user);
+//
+//        return UserResponse.builder()
+//                .username(user.getUsername())
+//                .name(user.getName())
+//                .build();
+//    }
+
     public UserResponse get(User user){
+        // return as string use builder, and push it to controller
         return UserResponse.builder()
                 .username(user.getUsername())
                 .name(user.getName())

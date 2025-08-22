@@ -28,9 +28,19 @@ public class UserController {
         return WebResponse.<String>builder().data("ok").build();
     }
 
+//    @PostMapping(
+//            path = "/api/users",
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public WebResponse<UserResponse> register(@RequestBody RegisterUserRequest request) {
+//        UserResponse userResponse = userService.register(request);
+//        return WebResponse.<UserResponse>builder().data(userResponse).build();
+//    }
+
 
     @GetMapping(
-            path = "/pai/users/current",
+            path = "/api/users/current",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<UserResponse> get(User user) {

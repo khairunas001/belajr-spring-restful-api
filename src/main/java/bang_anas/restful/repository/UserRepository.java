@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
+    // query to get the token
     Optional<User> findFirstByToken (String token);
 }
