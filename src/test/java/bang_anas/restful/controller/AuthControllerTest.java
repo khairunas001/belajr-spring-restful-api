@@ -145,4 +145,61 @@ class AuthControllerTest {
         });
 
     }
+
+    @Test
+    void logoutFailed() throws Exception {
+        mockMvc.perform(
+                delete("/api/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+                status().isUnauthorized()
+        ).andDo(result -> {
+                    WebResponse<String> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+
+                    assertNotNull(response.getErrors());
+                    System.out.println(response.getErrors());
+                }
+        );
+    }
+
+
+    @Test
+    void logoutSuccess() throws Exception{
+        User user = new User();
+        user.setUsername("test_anas");
+        user.setName("Test_Anas");
+        user.setToken("test_token");
+        user.setPassword(BCrypt.hashpw("test_password", BCrypt.gensalt()));
+        user.setTokenExpiredAt(System.currentTimeMillis() + 10000000000L);
+        userRepository.save(user);
+
+        mockMvc.perform(
+                delete("/api/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-API-TOKEN", user.getToken())
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<String> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+
+                    assertNull(response.getErrors());
+                    assertEquals("oke", response.getData());
+
+                    User userDb = userRepository.findById("test_anas").orElse(null);
+                    assertNotNull(userDb);
+                    assertNull(userDb.getToken());
+                    assertNull(userDb.getTokenExpiredAt());
+                }
+        );
+
+    }
+
 }
