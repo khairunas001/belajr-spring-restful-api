@@ -4,6 +4,7 @@ import bang_anas.restful.entity.Contact;
 import bang_anas.restful.entity.User;
 import bang_anas.restful.model.ContactResponse;
 import bang_anas.restful.model.CreateContactRequest;
+import bang_anas.restful.model.UpdateContactRequest;
 import bang_anas.restful.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,5 +62,39 @@ public class ContactService {
                         "contact not found"
                 ));
         return toContactResponse(contact);
+    }
+
+    @Transactional
+    public ContactResponse update(User user, UpdateContactRequest request) {
+        validationService.validate(request);
+
+        Contact contact = contactRepository.findFirstByUserAndId(
+                user,
+                request.getId()
+        ).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "contact not found"
+        ));
+
+        contact.setFirstName(request.getFirstName());
+        contact.setLastName(request.getLastName());
+        contact.setEmail(request.getEmail());
+        contact.setPhone(request.getPhone());
+        contactRepository.save(contact);
+
+        return toContactResponse(contact);
+    }
+
+    @Transactional
+    public void delete(User user, String id) {
+        Contact contact = contactRepository.findFirstByUserAndId(
+                user,
+                id
+        ).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "contact not found"
+        ));
+
+        contactRepository.delete(contact);
     }
 }
