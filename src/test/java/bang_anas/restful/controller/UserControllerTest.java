@@ -46,7 +46,7 @@ class UserControllerTest {
     @Test
     void testRegisterSuccess() throws Exception {
         RegisterUserRequest request = new RegisterUserRequest();
-        request.setUsername("test_anas");
+        request.setUsername("test_anas-user-test");
         request.setPassword("test_password");
         request.setName("test_name");
 
@@ -116,13 +116,13 @@ class UserControllerTest {
     @Test
     void testRegisterDuplicate() throws Exception {
         User user = new User();
-        user.setUsername("test_anas");
+        user.setUsername("test_anas-user-test");
         user.setPassword("test_password");
         user.setName("test_name");
         userRepository.save(user);
 
         RegisterUserRequest request = new RegisterUserRequest();
-        request.setUsername("test_anas");
+        request.setUsername("test_anas-user-test");
         request.setPassword("test_password");
         request.setName("test_name");
 
@@ -189,7 +189,7 @@ class UserControllerTest {
     @Test
     void getUserTokenExpired() throws Exception{
         User user = new User();
-        user.setUsername("test_anas");
+        user.setUsername("test_anas-user-test");
         user.setName("test_anas");
         user.setPassword(BCrypt.hashpw("test_password", BCrypt.gensalt()));
         user.setTokenExpiredAt(System.currentTimeMillis() - 10000000000L);
@@ -216,7 +216,7 @@ class UserControllerTest {
     @Test
     void getUserSuccess() throws Exception{
         User user = new User();
-        user.setUsername("test_anas");
+        user.setUsername("test_anas-user-test");
         user.setName("test_anas");
         user.setToken("test_token");
         user.setPassword(BCrypt.hashpw("test_password", BCrypt.gensalt()));
@@ -237,7 +237,7 @@ class UserControllerTest {
             );
 
             assertNull(response.getErrors());
-            assertEquals("test_anas",response.getData().getUsername());
+            assertEquals("test_anas-user-test",response.getData().getUsername());
             assertEquals("test_anas",response.getData().getName());
         });
     }
@@ -269,7 +269,7 @@ class UserControllerTest {
     @Test
     void updateUserSuccess() throws Exception{
         User user = new User();
-        user.setUsername("test_anas");
+        user.setUsername("test_anas-user-test");
         user.setName("Test_Anas");
         user.setToken("test_token");
         user.setPassword(BCrypt.hashpw("test_password", BCrypt.gensalt()));
@@ -297,9 +297,9 @@ class UserControllerTest {
 
             assertNull(response.getErrors());
             assertEquals("test_anas_update", response.getData().getName());
-            assertEquals("test_anas", response.getData().getUsername());
+            assertEquals("test_anas-user-test", response.getData().getUsername());
 
-            User userDb = userRepository.findById("test_anas").orElse(null);
+            User userDb = userRepository.findById("test_anas-user-test").orElse(null);
             assertNotNull(userDb);
             assertTrue(BCrypt.checkpw("test_password_update", userDb.getPassword()));
         });
