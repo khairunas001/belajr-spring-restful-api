@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -184,8 +185,7 @@ class ContactControllerTest {
                     assertEquals(contact.getPhone(), response.getData().getPhone());
 
                     System.out.println(response.getData());
-                }
-        );
+        });
     }
 
     @Test
@@ -298,7 +298,7 @@ class ContactControllerTest {
         contactRepository.save(contact);
 
         mockMvc.perform(
-                get("/api/contacts/" + contact.getId() )
+                delete("/api/contacts/" + contact.getId() )
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header(
@@ -316,6 +316,163 @@ class ContactControllerTest {
                     assertNull(response.getErrors());
                     assertEquals("oke", response.getData());
 
+                    System.out.println(response.getData());
+                }
+        );
+    }
+
+
+    @Test
+    void serachNotFound() throws Exception {
+        mockMvc.perform(
+                get("/api/contacts" )
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(
+                                "X-API-TOKEN",
+                                "test-token-anas"
+                        )
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<List<ContactResponse>> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+                    assertNull(response.getErrors());
+                    assertEquals(0,response.getData().size());
+                    assertEquals(0,response.getPaging().getTotalPage());
+                    assertEquals(0,response.getPaging().getCurrentPage());
+                    assertEquals(10,response.getPaging().getSize());
+                    System.out.println(response.getData());
+                }
+        );
+    }
+
+
+    @Test
+    void serachNSuccess() throws Exception {
+
+        User user = userRepository.findById("test-anas").orElseThrow();
+
+        for (int i = 0; i < 100; i++) {
+            Contact contact = new Contact();
+            contact.setId(UUID.randomUUID().toString());
+            contact.setUser(user);
+            contact.setFirstName("anas " + i);
+            contact.setLastName("Guege " + i);
+            contact.setEmail("Nyueno" + i + "@example.com");
+            contact.setPhone("9238423432");
+            contactRepository.save(contact);
+        }
+
+        // using name parameters
+        mockMvc.perform(
+                get("/api/contacts" )
+                        .queryParam("name", "anas")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(
+                                "X-API-TOKEN",
+                                "test-token-anas"
+                        )
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<List<ContactResponse>> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+                    assertNull(response.getErrors());
+                    assertEquals(10,response.getData().size());
+                    assertEquals(10,response.getPaging().getTotalPage());
+                    assertEquals(0,response.getPaging().getCurrentPage());
+                    assertEquals(10,response.getPaging().getSize());
+                    System.out.println(response.getData());
+                }
+        );
+
+        // using email ass query params
+        mockMvc.perform(
+                get("/api/contacts" )
+                        .queryParam("email", "Nyueno")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(
+                                "X-API-TOKEN",
+                                "test-token-anas"
+                        )
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<List<ContactResponse>> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+                    assertNull(response.getErrors());
+                    assertEquals(10,response.getData().size());
+                    assertEquals(10,response.getPaging().getTotalPage());
+                    assertEquals(0,response.getPaging().getCurrentPage());
+                    assertEquals(10,response.getPaging().getSize());
+                    System.out.println(response.getData());
+                }
+        );
+
+        // using phone ass query params
+        mockMvc.perform(
+                get("/api/contacts" )
+                        .queryParam("phone", "3842")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(
+                                "X-API-TOKEN",
+                                "test-token-anas"
+                        )
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<List<ContactResponse>> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+                    assertNull(response.getErrors());
+                    assertEquals(10,response.getData().size());
+                    assertEquals(10,response.getPaging().getTotalPage());
+                    assertEquals(0,response.getPaging().getCurrentPage());
+                    assertEquals(10,response.getPaging().getSize());
+                    System.out.println(response.getData());
+                }
+        );
+
+
+        // using page ass query params
+        mockMvc.perform(
+                get("/api/contacts" )
+                        .queryParam("phone", "3842")
+                        .queryParam("page", "1000")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(
+                                "X-API-TOKEN",
+                                "test-token-anas"
+                        )
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+                    WebResponse<List<ContactResponse>> response = objectMapper.readValue(
+                            result.getResponse().getContentAsString(),
+                            new TypeReference<>() {
+                            }
+                    );
+                    assertNull(response.getErrors());
+                    assertEquals(0,response.getData().size());
+                    assertEquals(10,response.getPaging().getTotalPage());
+                    assertEquals(1000,response.getPaging().getCurrentPage());
+                    assertEquals(10,response.getPaging().getSize());
                     System.out.println(response.getData());
                 }
         );
