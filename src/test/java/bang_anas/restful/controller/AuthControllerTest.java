@@ -4,6 +4,8 @@ import bang_anas.restful.entity.User;
 import bang_anas.restful.model.LoginUserRequest;
 import bang_anas.restful.model.TokenResponse;
 import bang_anas.restful.model.WebResponse;
+import bang_anas.restful.repository.AddressRepository;
+import bang_anas.restful.repository.ContactRepository;
 import bang_anas.restful.repository.UserRepository;
 import bang_anas.restful.security.BCrypt;
 import bang_anas.restful.service.AuthService;
@@ -34,10 +36,18 @@ class AuthControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
+        addressRepository.deleteAll();
+        contactRepository.deleteAll();
         userRepository.deleteAll();
     }
 

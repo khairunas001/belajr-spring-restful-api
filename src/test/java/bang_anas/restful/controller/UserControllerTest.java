@@ -5,6 +5,8 @@ import bang_anas.restful.model.RegisterUserRequest;
 import bang_anas.restful.model.UpdateUserRequest;
 import bang_anas.restful.model.UserResponse;
 import bang_anas.restful.model.WebResponse;
+import bang_anas.restful.repository.AddressRepository;
+import bang_anas.restful.repository.ContactRepository;
 import bang_anas.restful.repository.UserRepository;
 import bang_anas.restful.security.BCrypt;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -37,9 +39,17 @@ class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
+
 
     @BeforeEach
     void setUp() {
+        addressRepository.deleteAll();
+        contactRepository.deleteAll();
         userRepository.deleteAll();
     }
 
