@@ -6,6 +6,7 @@ import bang_anas.restful.model.ContactResponse;
 import bang_anas.restful.model.CreateContactRequest;
 import bang_anas.restful.model.UpdateContactRequest;
 import bang_anas.restful.model.WebResponse;
+import bang_anas.restful.repository.AddressRepository;
 import bang_anas.restful.repository.ContactRepository;
 import bang_anas.restful.repository.UserRepository;
 import bang_anas.restful.security.BCrypt;
@@ -45,10 +46,13 @@ class ContactControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AddressRepository addressRepository;
 
     @BeforeEach
     void setUp(){
 
+        addressRepository.deleteAll();
         contactRepository.deleteAll();
         userRepository.deleteAll();
 
