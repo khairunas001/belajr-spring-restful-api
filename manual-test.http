@@ -1,0 +1,126 @@
+### Register
+
+POST http://localhost:8080/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username" : "tokito",
+  "password" : "tokitoanjay1920",
+  "name" : "Tokito Sujiwo"
+}
+
+### Login
+
+POST http://localhost:8080/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "tokito",
+  "password": "tokitoanjay1920"
+}
+
+### Get User
+GET http://localhost:8080/api/users/current
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+
+### Update User
+PATCH http://localhost:8080/api/users/current
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+{
+  "name" : "Tokito Sujiwo Anjay Mabar"
+}
+
+### Create Contact
+POST http://localhost:8080/api/contacts
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+{
+  "firstName" : "Budi",
+  "lastName" : "Sipeat",
+  "email" : "BudiSipit@example.com",
+  "phone" : "696969"
+}
+
+### Search Contact
+GET http://localhost:8080/api/contacts
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+### Search Contact with params
+GET http://localhost:8080/api/contacts?name=Budi
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+
+### Get Contact
+GET http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+
+### Update Contact
+PUT http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+{
+  "firstName" : "Budi",
+  "lastName" : "Sipitenan",
+  "email" : "budisipit@example.com",
+  "phone" : "969696"
+}
+
+### Remove Contact
+DELETE http://localhost:8080/api/contacts/bb674a4a-b000-4f66-b01d-4fcd65c6d9ce
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+
+### Add Address
+POST http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac/addresses
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+{
+  "street" : "Jalan Kangkung",
+  "city" : "Jakarta Senen",
+  "province" : "Jakarta",
+  "country" : "Indonesia",
+  "postalCode" : "555555"
+}
+
+### List Addresses
+GET http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac/addresses
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+### Update Address
+PUT http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac/addresses/c9ee7171-de8e-4c9c-840f-ab261ba562d1
+Accept: application/json
+Content-Type: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb
+
+{
+  "street" : "Jalan Baru Parahyangan",
+  "city" : "Jakarta",
+  "province" : "DKI Jakarta",
+  "country" : "Indonesia",
+  "postalCode" : "23423"
+}
+
+
+### Remove Address
+DELETE http://localhost:8080/api/contacts/b3510723-0222-4016-bfab-10770f0fb7ac/addresses/c9ee7171-de8e-4c9c-840f-ab261ba562d1
+Accept: application/json
+X-API-TOKEN: f0e86da0-211a-4612-a21c-d425fe7aafbb

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AddressController {
 
@@ -56,7 +58,7 @@ public class AddressController {
     private WebResponse<AddressResponse> update(User user,
                                                 @RequestBody UpdateAddressRequest request,
                                                 @PathVariable("contactId") String contactId,
-                                                @PathVariable ("addressId") String addressId) {
+                                                @PathVariable("addressId") String addressId) {
 
         request.setContactId(contactId);
         request.setAddressId(addressId);
@@ -66,4 +68,33 @@ public class AddressController {
         );
         return WebResponse.<AddressResponse>builder().data(addressResponse).build();
     }
+
+    @DeleteMapping(
+            path = "/api/contacts/{contactId}/addresses/{addressId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    private WebResponse<String> remove(User user,
+                                       @PathVariable("contactId") String contactId,
+                                       @PathVariable("addressId") String addressId) {
+
+        addressService.remove(
+                user,
+                contactId,
+                addressId
+        );
+        return WebResponse.<String>builder().data("oke").build();
+    }
+
+
+    @GetMapping(
+            path = "/api/contacts/{contactId}/addresses",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    private WebResponse<List<AddressResponse>> list(User user, @PathVariable("contactId") String contactId) {
+
+        List<AddressResponse> addressResponses = addressService.list(user,contactId);
+
+        return WebResponse.<List<AddressResponse>>builder().data(addressResponses).build();
+    }
+
 }
